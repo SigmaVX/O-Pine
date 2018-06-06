@@ -1,0 +1,10 @@
+node_modules
+.env
+gulpfile.js
+.vscode
+.DS_Store
+*.log
+*.error
+dist
+.webpack
+.eslintrc.json
