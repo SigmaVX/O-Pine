@@ -93,7 +93,7 @@ module.exports = function(app) {
 
 
   // Route - Get News Stories
-  app.get("/scan", function (req, res) {
+  app.get("/api/scan", function (req, res) {
     
     function clearDB(){
     // Clear the Database Table
@@ -105,26 +105,32 @@ module.exports = function(app) {
       await grabTEO();
       await grabKotaku();
 
-    //   db.find({})
-    //  .then(function(data) {
-    //     console.log("===Data===\n", data);
-    //     res.render("index", data);
-    //   }).catch(function(err) {
-    //     res.json(err);
-    //   });
-
       db.News.find({}, function (err, data) {
         if(err) throw err;
         console.log("======Data======\n",data,"\n======End======");
         console.log("Data Sync Complete");
-        
+        // Save Data Array As An Object 
         var dataOut = { data: data };
-
+        // Render The Index With Data
         res.render("index", dataOut);
       });
     };
     render();
 });
+
+
+// Route - Get Comments
+app.get("/api/comments/:id", function (req, res) {
+  var id = req.params.id;
+  console.log("ID Selected For Comments: ", id);
+  db.News.findById(id, 'title comments', function(err, data){
+    if(err) throw err;
+    console.log("Sendind Data: ", data);
+    res.JSON(data);
+  });
+});
+
+
 
 
 };  

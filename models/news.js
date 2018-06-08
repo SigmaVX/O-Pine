@@ -7,13 +7,13 @@ var NewsSchema = new Schema({
   title: {
     type: String,
     trim: true,
-    // unique: true,
+    unique: true,
     required: "Headline Is Required"
   },
   image: {
     type: String,
     trim: true,
-    default: "./images/esport.jpg"
+    default: "./images/esport.png"
     // validate: [
     //   function(input) {
     //     return input.length >= 6;

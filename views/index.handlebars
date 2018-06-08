@@ -12,9 +12,42 @@
                 <div class="card-body">
                     <a href={{this.url}} target="_blank">{{this.title}}</a>
                     <p class="card-text">Source: {{this.source}} | {{this.date}}</p>
-                    <button class="btn col-12" id="{{_id}}">View Comments</button>
+                    <button type="button" class="btn col-12 comment-btn" id="{{_id}}">View Comments</button>
                 </div>
             </div>
             {{/each}}
+        </div>
+    </div>
+
+
+    <!-- Modal - Comments -->
+    <div class="modal fade" id="commentModal" data-id="" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="comment-modal-title">View And Share Comments</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="comment-modal-body">
+                    <div class="form-group" id="comments">
+                        {{!-- Add Comments Here --}}
+
+                    </div>
+
+
+                     <div class="form-group">
+                        <label for="user-comment">O-Pine: Share Your Thoughts</label>
+                        <textarea type="text" rows="5" class="form-control" id="user-comment" placeholder=""></textarea>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-block" id="submit-btn" data-id="" data-dismiss="modal">Submit Comment</button>
+                    <button type="button" class="btn btn-block" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
