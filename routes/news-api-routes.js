@@ -38,7 +38,7 @@ module.exports = function(app) {
           // Create Record Using Model And News Object
           db.News.create(newsItem)
           .then(function(data) {
-            console.log(data);
+            // console.log(data);
           })
           .catch(function(err) {
             console.log(err);
@@ -107,7 +107,7 @@ module.exports = function(app) {
 
       db.News.find({}, function (err, data) {
         if(err) throw err;
-        console.log("======Data======\n",data,"\n======End======");
+        // console.log("======Data======\n",data,"\n======End======");
         console.log("Data Sync Complete");
         // Save Data Array As An Object 
         var dataOut = { data: data };
@@ -125,8 +125,22 @@ app.get("/api/comments/:id", function (req, res) {
   console.log("ID Selected For Comments: ", id);
   db.News.findById(id, 'title comments', function(err, data){
     if(err) throw err;
-    console.log("Sendind Data: ", data);
-    res.JSON(data);
+    console.log("Sending Data: ", data);
+    res.json(data);
+  });
+});
+
+// Route - Post Comment
+app.put("/api/comments/:id", function (req, res) {
+  var id = req.params.id;
+  console.log("ID Selected For Comments: ", id);
+  var newComment = req.body.text;
+  console.log("New User Comment: ", newComment);
+
+  db.News.findByIdAndUpdate(id, { $push: { comments: newComment }}, function(err, data){
+    if(err) throw err;
+    console.log("Updated Data: ", data);
+    res.json(data);
   });
 });
 
