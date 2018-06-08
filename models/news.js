@@ -1,25 +1,24 @@
 var mongoose = require("mongoose");
 
-// Schema constructor
+// Schema Constructor
 var Schema = mongoose.Schema;
 
 var NewsSchema = new Schema({
   title: {
     type: String,
     trim: true,
-    unique: true,
+    // unique: true,
     required: "Headline Is Required"
   },
   image: {
     type: String,
     trim: true,
-    required: "Image Link is Required",
-    validate: [
-      function(input) {
-        return input.length >= 6;
-      },
-      "Image Link Should Be Longer."
-    ]
+    // validate: [
+    //   function(input) {
+    //     return input.length >= 6;
+    //   },
+    //   "Image Link Should Be Longer."
+    // ]
   },
   url: {
     type: String,

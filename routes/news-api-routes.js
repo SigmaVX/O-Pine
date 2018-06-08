@@ -1,13 +1,13 @@
 
 var mongoose = require("mongoose");
-var db = require("../models/news.js");
-mongoose.connect("mongodb://localhost/opine");
+var db = require("../models");
+// mongoose.connect("mongodb://localhost/opine");
 
 module.exports = function(app) {
 
-  // Get News Stories
-  app.get("/scan", function (req, res) {
-   
+  // Grab News From TEO
+  function grabTEO() {
+
     var cheerio = require("cheerio");
     var request = require("request");
     
@@ -20,49 +20,104 @@ module.exports = function(app) {
       $(".single-post").each(function(i, element) {
     
         var url = $(element).find("a").attr("href");
-        var title = $(element).find("a").attr("title");
-        var image = $(element).find("img").attr("src");
-        var date = $(element).find("time.entry-date").text();
+        var title = $(element).find("h3 a").text();
+        var image = $(element).find("a img").attr("src");
+        var date = $(element).find("time.entry-date").attr("datetime");
     
-        // Save Results In Array - Not Used BC Using Mongoose
-        // var results = [];        
-        // results.push({
-        //   title: title,
-        //   url: url,
-        //   image: image,
-        //   source: "TEO",
-        //   date: date
-        // });
-
-        // Save Data Into An Object
-        var newsItem = {
-          title: title,
-          url: url,
-          image: image,
-          source: "TEO",
-          date: date
-        };
+        if(i < 20){
+          
+          // Save Data Into An Object
+          var newsItem = {
+            title: title,
+            url: url,
+            image: image,
+            source: "TEO",
+            date: date
+          };
       
-        // console.log(newsItem);
-      // Add the text and href of every link, and save them as properties of the result object
-      // result.title = $(this)
-      //   .children("a")
-      //   .text();
-      // result.link = $(this)
-      //   .children("a")
-      //   .attr("href");
-
-        // Create Record Using Model And News Object
-        db.News.create(newsItem)
-        .then(function(data) {
-          console.log(data);
-          res.send("done");
-        })
-        .catch(function(err) {
-          return res.json(err);
-        });
-      });      
-      // res.send("done"); 
+          // Create Record Using Model And News Object
+          db.News.create(newsItem)
+          .then(function(data) {
+            console.log(data);
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
+        };
+      });
     });
-  });
-}
+  }
+
+  // Grab News From Kotaku
+  function grabKotaku(){
+
+    var cheerio = require("cheerio");
+    var request = require("request");
+
+    // Call To Grab HTML Body
+    request("https://kotaku.com/tag/esports", function(error, response, html) {
+
+      // Load the HTML Into Cheerio Using $ Syntax
+      var $ = cheerio.load(html);
+    
+      $("article").each(function(i, element) {
+    
+        var url = $(element).find("a").attr("href");
+        var title = $(element).find("h1 a").text();
+        var image = $(element).find("source").attr("data-srcset");
+        var date = $(element).find("time.meta__time").attr("datetime");
+    
+        if(i < 20){
+          
+          // Save Data Into An Object
+          var newsItem = {
+            title: title,
+            url: url,
+            image: image,
+            source: "Kotaku",
+            date: date
+          };
+      
+          // Create Record Using Model And News Object
+          db.News.create(newsItem)
+          .then(function(data) {
+            console.log(data);
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
+        };
+      });
+    });
+  };
+
+
+  // Route - Get News Stories
+  app.get("/scan", function (req, res) {
+    // Clear the Database Table
+    db.News.collection.deleteMany({});
+
+    async function render(){
+      await grabTEO();
+      await grabKotaku();
+
+    //   db.find({})
+    //  .then(function(data) {
+    //     console.log("===Data===\n", data);
+    //     res.render("index", data);
+    //   }).catch(function(err) {
+    //     res.json(err);
+    //   });
+
+      db.News.find({}, function (err, data) {
+        if(err) throw err;
+        console.log("======Data======\n",data,"\n======End======");
+        console.log("Data Sync Complete");
+        res.render("index", data);
+      });
+    };
+    render();
+});
+
+
+};  

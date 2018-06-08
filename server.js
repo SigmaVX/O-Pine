@@ -30,7 +30,7 @@ app.set("view engine", "handlebars");
 
 // Link Database & Static Directory
 // =============================================================
-var db = require("./models/news.js");
+var db = require("./models");
 app.use(express.static("public"));
 
 // Mongo Location
