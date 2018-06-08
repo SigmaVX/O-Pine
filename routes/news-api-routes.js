@@ -94,10 +94,14 @@ module.exports = function(app) {
 
   // Route - Get News Stories
   app.get("/scan", function (req, res) {
+    
+    function clearDB(){
     // Clear the Database Table
     db.News.collection.deleteMany({});
+    }
 
     async function render(){
+      // await clearDB();
       await grabTEO();
       await grabKotaku();
 
@@ -113,7 +117,10 @@ module.exports = function(app) {
         if(err) throw err;
         console.log("======Data======\n",data,"\n======End======");
         console.log("Data Sync Complete");
-        res.render("index", data);
+        
+        var dataOut = { data: data };
+
+        res.render("index", dataOut);
       });
     };
     render();

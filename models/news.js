@@ -13,6 +13,7 @@ var NewsSchema = new Schema({
   image: {
     type: String,
     trim: true,
+    default: "./images/esport.jpg"
     // validate: [
     //   function(input) {
     //     return input.length >= 6;
