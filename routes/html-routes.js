@@ -4,22 +4,19 @@ var db = require("../models");
 
 module.exports = function(app) {
 
-  // Index
+  // Route - Load Index
   app.get("/", function (req, res) {
-    
-    var data={};
 
-    res.render("index", data);
-    
-  //   db.News.find({})
-  //     .then(function (data) {
-  //       console.log(data);
-  //       res.render("index", data);
-  //     })
-  //     .catch(function (err) {
-  //       res.json(err);
-  //     });
-  });
-
+    // Null Implies to Return All Fields
+    db.News.find({}, null, {sort:{date:-1}}, function (err, data) {
+      if(err) throw err;
+      // console.log("======Data======\n",data,"\n======End======");
   
+      // Save Data Array As An Object 
+      var dataOut = { data: data };
+
+      // Render The Index With Data
+      res.render("index", dataOut);
+    });
+  });
 }

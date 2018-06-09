@@ -1,21 +1,22 @@
 
-<h1>O-Pine - eSports News & Comments</h1>
-
-
-
-<h2 class="col-12 myq-heading" id="">Latest News</h2>
     <div class="container">
         <div class="row justify-content-around">
-            {{#each data}}
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
-                <div class="card-body">
-                    <a href={{this.url}} target="_blank">{{this.title}}</a>
-                    <p class="card-text">Source: {{this.source}} | {{this.date}}</p>
-                    <button type="button" class="btn col-12 comment-btn" id="{{_id}}">View Comments</button>
+            {{!-- <div class="card deck"> --}}
+                {{#each data}}
+                <div class="card col-3 px-1 py-1" style="width: 18rem;">
+                    <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
+                    <div class="card-body">
+                        <div class="card-text">
+                            <a href={{this.url}} target="_blank">{{this.title}}</a>
+                            <p class="card-text">Source: {{this.source}} | {{#fmtDate}}{{this.date}}{{/fmtDate}}</p>
+                        </div>
+                        <div class="row align-items-end btn-wrap">
+                            <button type="button" class="btn col-12 comment-btn" id="{{_id}}">View Comments</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            {{/each}}
+                {{/each}}
+            {{!-- </div> --}}
         </div>
     </div>
 

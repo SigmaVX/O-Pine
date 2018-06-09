@@ -1,10 +1,32 @@
+// Video Functions - Scale To Full Screen
+function scaleToFill() {
+    $('video.video-background').each(function(index, videoTag) {
+       var $video = $(videoTag),
+           videoRatio = videoTag.videoWidth / videoTag.videoHeight,
+           tagRatio = $video.width() / $video.height(),
+           val;
 
+       if (videoRatio < tagRatio) {
+           val = tagRatio / videoRatio * 1.02; 
+       } else if (tagRatio < videoRatio) {
+           val = videoRatio / tagRatio * 1.02;
+       }
 
-// X 1) add event listener to view comments
-// 2) show modal with comments at top and text box with button at bottom
-// 2.a) pass ID into dom id -> grab ID and include as part of AJAX params
-// 2.b) create jQ loop to render comments -> show "no comments" if empty
-// 3) add route to text box button that adds the comment and keeps modal open
+       $video.css('transform','scale(' + val  + ',' + val + ')');
+
+    });    
+}
+
+$(function () {
+    scaleToFill();
+
+    $('.video-background').on('loadeddata', scaleToFill);
+
+    $(window).resize(function() {
+        scaleToFill();
+    });
+});
+
 
 // Get News From Sites
 function getNews(){
@@ -13,9 +35,9 @@ function getNews(){
         url: "/api/scan",
         type: "GET",
     }).then(function(data) {
-        console.log(data);
+        // console.log(data);
     });
-}
+};
 
 // Add Comments To Modal
 function renderComments(id){
@@ -24,8 +46,8 @@ function renderComments(id){
         url: "/api/comments/"+id,
         type: "GET",
     }).then(function(data) {
-        console.log("Data Stored: ", data);
-        console.log("Number Of Data Comments: ", data.comments.length);
+        // console.log("Data Stored: ", data);
+        // console.log("Number Of Data Comments: ", data.comments.length);
         $("#comment-title").text(data.title);
         
         if(data.comments.length < 1){
@@ -35,7 +57,7 @@ function renderComments(id){
             // Loop Comments Into Rows 
             for(var i=0; i<data.comments.length; i++){
                 var newPost = $("<div>").attr("class", "col-12 text center");
-                $(newPost).text(data.comments[i].userComment);
+                $(newPost).text(data.comments[i]);
                 $("#comments").append(newPost);
 
             };
@@ -50,21 +72,33 @@ function renderComments(id){
 // Post Comments
 function postComment(id){
     var text = $("#user-comment").val().trim();
-    console.log("User Comment: ", text);
+    // console.log("User Comment: ", text);
+
+    var sendObject = {
+        userComment: text
+    };
+
     if(text.length < 3 || text.length > 500){
         $("#error-text").text("Error: Comments Must Be Between Thee and 500 Characters!")
     } else {
 
+        var sendObject = {
+            userComment: text
+        };
+
+        $("#user-comment").val("");
+
         $.ajax({
             url: "/api/comments/"+id,
             type: "PUT",
-            data: text
+            data: sendObject
         }).then(function(data) {
-            renderComments(id);
+            var newPost = $("<div>").attr("class", "col-12 text center");
+            $(newPost).text(text);
+            $("#comments").append(newPost);
         });
-    }
-
-}
+    };
+};
 
 
 // Event Listeners
@@ -85,7 +119,7 @@ $("#sync").on("click", function(event){
     event.preventDefault();
     // console.log("Clicked");
     getNews();
-})
+});
 
 // Post Comment
 $("#submit-btn").on("click", function(event){
@@ -93,4 +127,4 @@ $("#submit-btn").on("click", function(event){
     var id = $(this).attr("data-id");
     // console.log(id);
     postComment(id);
-})
+});

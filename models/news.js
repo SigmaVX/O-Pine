@@ -36,7 +36,7 @@ var NewsSchema = new Schema({
     required: "Source Is Required"
   },
   comments: {
-    type: Array
+    type: []
   }
 });
 

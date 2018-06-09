@@ -14,7 +14,6 @@ var PORT = process.env.PORT || 8080;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
-// app.use(express.static(__dirname + '/public'));
 
 // Setup Handlebars View Engine
 // =============================================================
@@ -22,12 +21,11 @@ app.engine("handlebars", exphbs({
     "defaultLayout": "main",
     "helpers": {
       // Formates timestamp into DD, MM NN, YYYY  HH:MM format
-      "fmtDate": (date) => moment(date).format("LLLL")
+      "fmtDate": (date) => moment(date).format("MMM D YY")
     }
   }));
 
 app.set("view engine", "handlebars");
-
 
 // Link Database & Static Directory
 // =============================================================
@@ -43,7 +41,6 @@ mongoose.connect(MONGODB_URI);
 // =============================================================
 require("./routes/html-routes.js")(app);
 require("./routes/news-api-routes.js")(app);
-
 
 // Start Express
 // =============================================================
