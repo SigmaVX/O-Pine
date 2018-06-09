@@ -25,21 +25,21 @@ function renderComments(id){
         type: "GET",
     }).then(function(data) {
         console.log("Data Stored: ", data);
+        console.log("Number Of Data Comments: ", data.comments.length);
         $("#comment-title").text(data.title);
         
-
-        if(data.comments.length === 0){
+        if(data.comments.length < 1){
             $("#comments").text("No Comments");
         } else{
 
             // Loop Comments Into Rows 
             for(var i=0; i<data.comments.length; i++){
-                var newRow = $("<tr>").attr("class", "col-12 text center");
-                $("#comments").append(newRow);
+                var newPost = $("<div>").attr("class", "col-12 text center");
+                $(newPost).text(data.comments[i].userComment);
+                $("#comments").append(newPost);
 
-                var newComment = $("<td>").text(data.comments[i])
             };
-        }
+        };
     }); 
 
     $("#commentModal").modal("show");

@@ -130,11 +130,13 @@ app.get("/api/comments/:id", function (req, res) {
   });
 });
 
+
 // Route - Post Comment
 app.put("/api/comments/:id", function (req, res) {
   var id = req.params.id;
   console.log("ID Selected For Comments: ", id);
-  var newComment = req.body.text;
+  var newComment = req.body;
+
   console.log("New User Comment: ", newComment);
 
   db.News.findByIdAndUpdate(id, { $push: { comments: newComment }}, function(err, data){
