@@ -1,8 +1,6 @@
 
-body{
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#003747), color-stop(50%, #0c777d), color-stop(94%, #031622));
-    background-image: -webkit-linear-gradient(top, #003747 0%, #0c777d 50%, #031622 94%);
-    background-image: linear-gradient(to bottom,#031622 0%, #333333 50%, #aaaaaa 94%);
+footer{
+    color: #3b0054;
 }
 
 h1{
@@ -39,11 +37,20 @@ h5{
 }
 
 .card-img-top{
-    min-height: 204px;
+    min-height: 215px;
 }
 
 .card-text{
     height: 150px;
+}
+
+.container-fluid{
+    padding-left: 0px;
+    padding-right: 0px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#003747), color-stop(50%, #0c777d), color-stop(94%, #031622));
+    background-image: -webkit-linear-gradient(top, #003747 0%, #0c777d 50%, #031622 94%);
+    background-image: linear-gradient(to bottom,#aaaaaa 0%, #031622 50%, #333333 94%);
+    z-index: -1;
 }
 
 .jumbotron{
@@ -81,12 +88,39 @@ h5{
     color: #3b0054;
     background-color: #ffffff;
     cursor: pointer;
+    z-index: 100;
 }
 
 #sync h4{
     display: inline;
 
 }
+
+/* CSS For Particles */
+#particles-js{
+    width: 100%;
+    height: 100%;
+    /* background-color: #b61924; */
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    
+  }
+
+  canvas{
+    display:block;
+    position: fixed;
+    top: 0px;
+    margin-left: -30px;
+  }
+
+  html,body{ 
+	width:100%;
+	height:100%;
+	/* background:#111; */
+}
+
+
 
 /* Center Placeholder */
 ::-webkit-input-placeholder {
