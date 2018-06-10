@@ -1,11 +1,32 @@
 
-.video-background { /* class name used in javascript too */
-    width: 100%; /* width needs to be set to 100% */
-    height: 100%; /* height needs to be set to 100% */
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: -1;
+body{
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#003747), color-stop(50%, #0c777d), color-stop(94%, #031622));
+    background-image: -webkit-linear-gradient(top, #003747 0%, #0c777d 50%, #031622 94%);
+    background-image: linear-gradient(to bottom,#031622 0%, #333333 50%, #aaaaaa 94%);
+}
+
+h1{
+    font-family: 'Sunflower', sans-serif;
+    font-weight: 700;
+    font-size: 100px;
+}
+
+h2{
+    font-family: 'Lato', sans-serif;
+}
+
+h5{
+    text-align: center;
+}
+
+.btn{
+    background-color: #3b0054;
+    color: #ffffff;
+}
+
+.btn:hover{
+    color: #dddddd;
+    background-color: #5d2074;
 }
 
 .card{
@@ -18,20 +39,68 @@
 }
 
 .card-img-top{
-    min-height: 199px;
+    min-height: 204px;
 }
 
 .card-text{
-    height: 120px;
+    height: 150px;
+}
+
+.jumbotron{
+    border-radius: 0px;
+    background-color: #3b0054;
+    color: #ffffff;
+}
+
+.modal-header{
+    background-color: #3b0054;
+    color: #ffffff;
+}
+
+.title{
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: black;
+    font-family: 'Dosis', sans-serif;
+}
+
+#comment-label{
+    font-weight: 600;
+}
+
+#comment-modal-body{
+    padding: 10px;
+    text-align: center;
 }
 
 #sync{
     font-size: 30px;
     border: 2px solid black;
     border-radius: 20px;
-    /* display: inline; */
+    color: #3b0054;
+    background-color: #ffffff;
+    cursor: pointer;
 }
 
 #sync h4{
     display: inline;
+
 }
+
+/* Center Placeholder */
+::-webkit-input-placeholder {
+    text-align: center;
+ }
+ 
+ :-moz-placeholder { /* Firefox 18- */
+    text-align: center;  
+ }
+ 
+ ::-moz-placeholder {  /* Firefox 19+ */
+    text-align: center;  
+ }
+ 
+ :-ms-input-placeholder {  
+    text-align: center; 
+ }

@@ -1,14 +1,14 @@
 
-    <div class="container">
-        <div class="row justify-content-around">
+    <div class="container-fluid card-area">
+        <div class="row justify-content-center">
             {{!-- <div class="card deck"> --}}
                 {{#each data}}
-                <div class="card col-3 px-1 py-1" style="width: 18rem;">
+                <div class="card col-3 mx-1 my-1">
                     <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
                     <div class="card-body">
                         <div class="card-text">
-                            <a href={{this.url}} target="_blank">{{this.title}}</a>
-                            <p class="card-text">Source: {{this.source}} | {{#fmtDate}}{{this.date}}{{/fmtDate}}</p>
+                            <a href={{this.url}} class="title" target="_blank">{{this.title}}</a>
+                            <p class="card-text my-1">Source: {{this.source}} | {{#fmtDate}}{{this.date}}{{/fmtDate}}</p>
                         </div>
                         <div class="row align-items-end btn-wrap">
                             <button type="button" class="btn col-12 comment-btn" id="{{_id}}">View Comments</button>
@@ -25,21 +25,18 @@
     <div class="modal fade" id="commentModal" data-id="" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="comment-modal-title">View And Share Comments</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div class="modal-header text-center">
+                    <h5 class="modal-title col-12" id="comment-modal-title">View And Share Comments</h5>
                 </div>
                 <div id="comment-modal-body">
-                    <h5 class="form-group" id="comment-title">
+                    <h5 class="form-group py-1" id="comment-title">
                         {{!-- Add Title Here --}}
                     </h5>
-                    <div class="form-group" id="comments">
+                    <div class="form-group py-1" id="comments">
                         {{!-- Add Comments Here --}}
                     </div>
                      <div class="form-group">
-                        <label for="user-comment">O-Pine & Share Your Thoughts Below</label>
+                        <label id="comment-label"for="user-comment">O-Pine & Share Your Thoughts Below</label>
                         <textarea type="text" rows="5" class="form-control" id="user-comment" placeholder="What Do You Think?"></textarea>
                     </div>
                     <div id="error-text">
@@ -47,8 +44,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-block" id="submit-btn" data-id="">Submit Comment</button>
-                    <button type="button" class="btn btn-block" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn col-12 col-md-6" id="submit-btn" data-id="">Submit Comment</button>
+                    <button type="button" class="btn col-12 col-md-6" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

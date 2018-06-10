@@ -21,7 +21,7 @@ app.engine("handlebars", exphbs({
     "defaultLayout": "main",
     "helpers": {
       // Formates timestamp into DD, MM NN, YYYY  HH:MM format
-      "fmtDate": (date) => moment(date).format("MMM D YY")
+      "fmtDate": (date) => moment(date).format("MMM D YYYY")
     }
   }));
 

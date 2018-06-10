@@ -115,10 +115,13 @@ $(".comment-btn").on("click", function(event){
 });
 
 // Sync Icon - Refresh News
-$("#sync").on("click", function(event){
+$("#sync").one("click", function(event){
     event.preventDefault();
     // console.log("Clicked");
     getNews();
+    $("#refresh-text").text("News Updated");
+    $("#sync").css("background-color", "#aaaaaa");
+    $(this).prop('disabled', true);
 });
 
 // Post Comment
