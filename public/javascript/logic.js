@@ -7,6 +7,7 @@ function getNews(){
         type: "GET",
     }).then(function(data) {
         // console.log(data);
+        location.reload();
     });
 };
 
