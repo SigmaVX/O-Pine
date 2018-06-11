@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var db = require("../models");
+var News = require("../models/News.js");
 // mongoose.connect("mongodb://localhost/opine");
 
 module.exports = function(app) {
@@ -8,7 +8,7 @@ module.exports = function(app) {
   app.get("/", function (req, res) {
 
     // Null Implies to Return All Fields
-    db.News.find({}, null, {sort:{date:-1}}, function (err, data) {
+    News.find({}, null, {sort:{date:-1}}, function (err, data) {
       if(err) throw err;
       // console.log("======Data======\n",data,"\n======End======");
   

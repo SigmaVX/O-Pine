@@ -1,6 +1,6 @@
 
 var mongoose = require("mongoose");
-var db = require("../models");
+var News = require("../models/News.js");
 // mongoose.connect("mongodb://localhost/opine");
 
 module.exports = function(app) {
@@ -36,7 +36,7 @@ module.exports = function(app) {
           };
       
           // Create Record Using Model And News Object
-          db.News.create(newsItem)
+          News.create(newsItem)
           .then(function(data) {
             // console.log(data);
           })
@@ -79,7 +79,7 @@ module.exports = function(app) {
           };
       
           // Create Record Using Model And News Object
-          db.News.create(newsItem)
+          News.create(newsItem)
           .then(function(data) {
             // console.log(data);
           })
@@ -97,7 +97,7 @@ module.exports = function(app) {
     
     function clearDB(){
     // Clear the Database Table
-    db.News.collection.deleteMany({});
+    News.collection.deleteMany({});
     }
 
     async function render(){
@@ -105,7 +105,7 @@ module.exports = function(app) {
       await grabTEO();
       await grabKotaku();
 
-      db.News.find({}, null, {sort:{date:-1}}, function (err, data) {
+      News.find({}, null, {sort:{date:-1}}, function (err, data) {
         if(err) throw err;
         // console.log("======Data======\n",data,"\n======End======");
         console.log("Data Sync Complete");
@@ -123,7 +123,7 @@ module.exports = function(app) {
 app.get("/api/comments/:id", function (req, res) {
   var id = req.params.id;
   // console.log("ID Selected For Comments: ", id);
-  db.News.findById(id, 'title comments', function(err, data){
+  News.findById(id, 'title comments', function(err, data){
     if(err) throw err;
     // console.log("Sending Data: ", data);
     res.json(data);
@@ -139,7 +139,7 @@ app.put("/api/comments/:id", function (req, res) {
 
   // console.log("New User Comment: ", newComment);
 
-  db.News.findByIdAndUpdate(id, { $push: { comments: newComment }}, function(err, data){
+  News.findByIdAndUpdate(id, { $push: { comments: newComment }}, function(err, data){
     if(err) throw err;
     // console.log("Updated Data: ", data);
     res.json(data);
