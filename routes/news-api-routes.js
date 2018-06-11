@@ -1,6 +1,6 @@
 
 var mongoose = require("mongoose");
-var News = require("../models/News.js");
+var News = require("../models/news.js");
 // mongoose.connect("mongodb://localhost/opine");
 
 module.exports = function(app) {

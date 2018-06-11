@@ -1,5 +1,5 @@
 // Export All Models
 module.exports = {
-    News: require("./News.js")
+    News: require("./news.js")
 };
   
