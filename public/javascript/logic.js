@@ -94,6 +94,7 @@ $("#sync").one("click", function(event){
     $("#refresh-text").text("News Updated");
     $("#sync").css("background-color", "#aaaaaa");
     $(this).prop('disabled', true);
+    location.reload();
 });
 
 // Post Comment
